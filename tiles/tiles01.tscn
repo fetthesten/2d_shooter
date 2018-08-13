@@ -1,0 +1,812 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gfx/platform_tiles.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="Node" type="Node"]
+
+[node name="brickwall01" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="brickwall01" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="brickwall01/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="brickwall02" type="Sprite" parent="." index="1"]
+
+position = Vector2( 0, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="brickwall02" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="brickwall02/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="metalwall02" type="Sprite" parent="." index="2"]
+
+position = Vector2( 16, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 16, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="metalwall02" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="metalwall02/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="metalwall01" type="Sprite" parent="." index="3"]
+
+position = Vector2( 16, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 16, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="metalwall01" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="metalwall01/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="woodwall01" type="Sprite" parent="." index="4"]
+
+position = Vector2( 32, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 32, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="woodwall01" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="woodwall01/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="woodwall02" type="Sprite" parent="." index="5"]
+
+position = Vector2( 32, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 32, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="woodwall02" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="woodwall02/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall01" type="Sprite" parent="." index="6"]
+
+position = Vector2( 48, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 48, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall01" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall01/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall01_damage01" type="Sprite" parent="." index="7"]
+
+position = Vector2( 48, 32 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 48, 32, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall01_damage01" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall01_damage01/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall01_damage02" type="Sprite" parent="." index="8"]
+
+position = Vector2( 48, 48 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 48, 48, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall01_damage02" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall01_damage02/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall02" type="Sprite" parent="." index="9"]
+
+position = Vector2( 64, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 64, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall02" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall02/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall03" type="Sprite" parent="." index="10"]
+
+position = Vector2( 80, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 80, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall03" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall03/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall04" type="Sprite" parent="." index="11"]
+
+position = Vector2( 96, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 96, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall04" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall04/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall05" type="Sprite" parent="." index="12"]
+
+position = Vector2( 112, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 112, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall05" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall05/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall06" type="Sprite" parent="." index="13"]
+
+position = Vector2( 128, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 128, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall06" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall06/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall07" type="Sprite" parent="." index="14"]
+
+position = Vector2( 144, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 144, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall07" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall07/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall08" type="Sprite" parent="." index="15"]
+
+position = Vector2( 160, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 160, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall08" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall08/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall09" type="Sprite" parent="." index="16"]
+
+position = Vector2( 176, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 176, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall09" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall09/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall10" type="Sprite" parent="." index="17"]
+
+position = Vector2( 192, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 192, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall10" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall10/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall11" type="Sprite" parent="." index="18"]
+
+position = Vector2( 208, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 208, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall11" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall11/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall12" type="Sprite" parent="." index="19"]
+
+position = Vector2( 224, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 224, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall12" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall12/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall13" type="Sprite" parent="." index="20"]
+
+position = Vector2( 240, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 240, 0, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall13" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall13/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall14" type="Sprite" parent="." index="21"]
+
+position = Vector2( 48, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 48, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall14" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall14/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall15" type="Sprite" parent="." index="22"]
+
+position = Vector2( 64, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 64, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall15" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall15/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall16" type="Sprite" parent="." index="23"]
+
+position = Vector2( 80, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 80, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall16" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall16/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall17" type="Sprite" parent="." index="24"]
+
+position = Vector2( 96, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 96, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall17" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall17/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall18" type="Sprite" parent="." index="25"]
+
+position = Vector2( 112, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 112, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall18" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall18/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall19" type="Sprite" parent="." index="26"]
+
+position = Vector2( 128, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 128, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall19" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall19/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall20" type="Sprite" parent="." index="27"]
+
+position = Vector2( 144, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 144, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall20" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall20/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthwall21" type="Sprite" parent="." index="28"]
+
+position = Vector2( 160, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 160, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="earthwall21" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="earthwall21/StaticBody2D" index="0"]
+
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="earthback01" type="Sprite" parent="." index="29"]
+
+position = Vector2( 176, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 176, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="earthback02" type="Sprite" parent="." index="30"]
+
+position = Vector2( 192, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 192, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="earthback03" type="Sprite" parent="." index="31"]
+
+position = Vector2( 208, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 208, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="earthback04" type="Sprite" parent="." index="32"]
+
+position = Vector2( 224, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 224, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+[node name="earthback05" type="Sprite" parent="." index="33"]
+
+position = Vector2( 240, 16 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 240, 16, 16, 16 )
+_sections_unfolded = [ "Offset", "Region", "Transform" ]
+
+
