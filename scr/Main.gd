@@ -2,6 +2,11 @@ extends Node
 
 # const
 const V2_ZERO = Vector2(0,0)
+const V3_ZERO = Vector3(0,0,0)
+const V3_UP = Vector3(0,0,-1)
+const V3_DOWN = Vector3(0,0,1)
+const V3_LEFT = Vector3(-1,0,0)
+const V3_RIGHT = Vector3(1,0,0)
 
 # for this to work, this needs to be the only singleton in the game so the second tree child is always the current scene
 onready var current_scene = get_parent().get_child(1)
@@ -15,8 +20,11 @@ var current_projectiles = []
 var fx_prototypes = {}
 
 func _ready():
-	current_camera.current = true
+	if current_camera == null:
+		current_camera = current_scene.get_node('Camera')
+		current_camera.current = true
 	print('** ',current_scene.name,' loaded **')
+	print(current_camera)
 	
 	# load in fx prototypes
 	fx_prototypes['dirt_hit'] = load('res://fx/FX_HitDirt.tscn')

@@ -5,7 +5,7 @@
 [ext_resource path="res://scr/test_cam.gd" type="Script" id=3]
 [ext_resource path="res://obj/player.tscn" type="PackedScene" id=4]
 
-[node name="Test_Level" type="Node" index="0"]
+[node name="Test_Level" type="Node"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="0"]
 
