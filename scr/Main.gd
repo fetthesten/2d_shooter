@@ -3,10 +3,18 @@ extends Node
 # const
 const V2_ZERO = Vector2(0,0)
 const V3_ZERO = Vector3(0,0,0)
+const V3_GLOBALUP = Vector3(0,1,0)
 const V3_UP = Vector3(0,0,-1)
 const V3_DOWN = Vector3(0,0,1)
 const V3_LEFT = Vector3(-1,0,0)
 const V3_RIGHT = Vector3(1,0,0)
+
+# helpers
+onready var rotation_helper = $rotation_helper
+var current_world = null
+onready var debug_label = $debug_label
+onready var debug_draw = $debug_draw
+var mat = SpatialMaterial.new()
 
 # for this to work, this needs to be the only singleton in the game so the second tree child is always the current scene
 onready var current_scene = get_parent().get_child(1)
@@ -20,6 +28,10 @@ var current_projectiles = []
 var fx_prototypes = {}
 
 func _ready():
+	mat.flags_unshaded = true
+	mat.flags_use_point_size = true
+	mat.albedo_color = Color(1,0,0,0.8)
+	debug_draw.set_material_override(mat)
 	if current_camera == null:
 		current_camera = current_scene.get_node('Camera')
 		current_camera.current = true
@@ -66,7 +78,10 @@ func _ready():
 					'crumbling': tileset.find_tile_by_name(tilename + '_damage02'),
 					'destroyed': tileset.find_tile_by_name(proto['destroyed'])
 					}
-	
+
+func _physics_process(delta):
+	current_world = current_scene.get_world().direct_space_state
+
 func _process(delta):
 	for p in current_projectiles:
 		var colliding = false

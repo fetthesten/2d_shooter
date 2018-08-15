@@ -1,11 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scr/3d_player_test01.gd" type="Script" id=1]
-
-[sub_resource type="CapsuleShape" id=1]
-
-radius = 1.0
-height = 1.0
 
 [sub_resource type="PrismMesh" id=2]
 
@@ -67,6 +62,19 @@ uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
 
+[sub_resource type="Curve" id=6]
+
+min_value = 0.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+
+flags = 4
+width = 2048
+curve = SubResource( 6 )
+
 [sub_resource type="ParticlesMaterial" id=4]
 
 render_priority = 0
@@ -94,6 +102,7 @@ angle = 0.0
 angle_random = 0.0
 scale = 1.0
 scale_random = 0.0
+scale_curve = SubResource( 7 )
 color = Color( 1, 1, 1, 1 )
 hue_variation = 0.0
 hue_variation_random = 0.0
@@ -102,23 +111,28 @@ anim_speed_random = 0.0
 anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
-_sections_unfolded = [ "Gravity", "Initial Velocity" ]
+_sections_unfolded = [ "Animation", "Gravity", "Initial Velocity", "Scale" ]
 
 [sub_resource type="SphereMesh" id=5]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
-radius = 1.0
-height = 2.0
+radius = 0.4
+height = 0.8
 radial_segments = 64
 rings = 32
 is_hemisphere = false
+
+[sub_resource type="CapsuleShape" id=1]
+
+radius = 1.0
+height = 1.0
 
 [node name="3dship01" type="KinematicBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 2
+collision_mask = 2
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -127,13 +141,13 @@ axis_lock_angular_y = false
 axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 movespeed = 20
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="0"]
+[node name="shot_origin" type="Spatial" parent="." index="0"]
 
-shape = SubResource( 1 )
-disabled = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="1"]
 
@@ -180,5 +194,10 @@ process_material = SubResource( 4 )
 draw_passes = 1
 draw_pass_1 = SubResource( 5 )
 _sections_unfolded = [ "Draw Passes", "Drawing", "Geometry", "LOD", "Process Material", "Time", "Transform", "Visibility" ]
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
+
+shape = SubResource( 1 )
+disabled = false
 
 
