@@ -5,6 +5,7 @@ onready var bullet_prefab = preload("res://obj/3d_bullet_test.tscn")
 export var movespeed = 20
 var last_move_time = 0
 var last_move_dir = Main.V3_ZERO
+var forward
 
 var cast_hit = null
 var cast_target = null
@@ -16,6 +17,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	forward = -global_transform.basis.z
 	var coll = Main.current_world.intersect_ray(global_transform.origin, global_transform.origin + (-global_transform.basis.z * cast_range), [self])
 	var endpoint = global_transform.origin + (-global_transform.basis.z * cast_range)
 	
@@ -35,9 +37,7 @@ func _physics_process(delta):
 	Main.debug_draw.add_vertex(endpoint)
 	Main.debug_draw.end()
 
-func _process(delta):
 	var move = Main.V3_ZERO
-	var forward = -global_transform.basis.z
 	
 	if Input.is_action_pressed('ui_up'):
 		move += Main.V3_UP
@@ -48,25 +48,35 @@ func _process(delta):
 	elif Input.is_action_pressed('ui_right'):
 		move += Main.V3_RIGHT
 	
+	if move != last_move_dir:
+		last_move_time = OS.get_ticks_msec()
+	last_move_dir = move
+	
+	$move_helper.global_transform.origin = global_transform.origin + move
+	
+	# rotation
+	var current_rot = Vector3(rotation)
+	look_at(global_transform.origin + move.normalized(), Main.V3_GLOBALUP)
+	var target_rot = Vector3(rotation)
+	var step = float((OS.get_ticks_msec() - last_move_time)) / 500
+
+	Main.debug_label.text += '\ncurrent_rot: ' + str(current_rot) + '\ntarget_rot: ' + str(target_rot)
+
+	if step <= 1:
+		rotation = current_rot.linear_interpolate(target_rot, step)
+
+	var move_index = forward.ceil()
+	Main.debug_label.text += '\nmove_index: ' + str(move_index)
+	
+	move_and_slide(forward * movespeed)
+	
+	Main.current_camera.translation = translation + Vector3(0,10,5)
+	Main.current_camera.rotation_degrees = Vector3(-45,0,0)
+	
+func _process(delta):
 	if Input.is_action_pressed('ui_accept'):
 		var bullet = bullet_prefab.instance()
 		get_parent().add_child(bullet)
 		bullet.global_transform.origin = $shot_origin.global_transform.origin
 		bullet.set_axis_velocity(forward * 20)
-	
-	if move != last_move_dir:
-		last_move_time = OS.get_ticks_msec()
-	last_move_dir = move
-	
-	move_and_slide(move * movespeed)
-	
-	if move != Main.V3_ZERO:
-		Main.rotation_helper.look_at(Main.rotation_helper.translation + move, Main.V3_GLOBALUP)
-	var step = float((OS.get_ticks_msec() - last_move_time)) / 500
-	
-	if step <= 1:
-		rotation_degrees = rotation_degrees.linear_interpolate(Main.rotation_helper.rotation_degrees, step)
-	
-	Main.current_camera.translation = translation + Vector3(0,10,5)
-	Main.current_camera.rotation_degrees = Vector3(-45,0,0)
 	
