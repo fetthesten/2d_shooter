@@ -2,7 +2,10 @@ extends KinematicBody
 
 onready var bullet_prefab = preload("res://obj/3d_bullet_test.tscn")
 
-export var movespeed = 20
+export var movespeed = 60
+export var max_movespeed = 40
+export var deceleration = 60
+var current_movespeed = 0
 var last_move_time = 0
 var last_move_dir = Main.V3_ZERO
 var forward
@@ -17,7 +20,6 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	forward = -global_transform.basis.z
 	var coll = Main.current_world.intersect_ray(global_transform.origin, global_transform.origin + (-global_transform.basis.z * cast_range), [self])
 	var endpoint = global_transform.origin + (-global_transform.basis.z * cast_range)
 	
@@ -36,7 +38,8 @@ func _physics_process(delta):
 	Main.debug_draw.add_vertex(global_transform.origin)
 	Main.debug_draw.add_vertex(endpoint)
 	Main.debug_draw.end()
-
+	
+func _process(delta):
 	var move = Main.V3_ZERO
 	
 	if Input.is_action_pressed('ui_up'):
@@ -47,36 +50,46 @@ func _physics_process(delta):
 		move += Main.V3_LEFT
 	elif Input.is_action_pressed('ui_right'):
 		move += Main.V3_RIGHT
+		
+	if move != Main.V3_ZERO:
+		# increase velocity if moving
+		current_movespeed += movespeed * delta
+		current_movespeed = min(current_movespeed,max_movespeed)
+	else:
+		# decelerate
+		current_movespeed -= deceleration * delta
+		current_movespeed = max(current_movespeed, 0)
 	
+	# used to check if rotation interpolation should be performed
 	if move != last_move_dir:
 		last_move_time = OS.get_ticks_msec()
 	last_move_dir = move
 	
-	$move_helper.global_transform.origin = global_transform.origin + move
+	transform = transform.orthonormalized()
 	
 	# rotation
-	var current_rot = Vector3(rotation)
-	look_at(global_transform.origin + move.normalized(), Main.V3_GLOBALUP)
-	var target_rot = Vector3(rotation)
+	# snap to final orientation, then slerp towards it 
+	# if last directional change occurred recently
+	var current_rot = Quat(transform.basis)
+	if move != Main.V3_ZERO:
+		look_at(global_transform.origin + move.normalized(), Main.V3_GLOBALUP)
+	var target_rot = Quat(transform.basis)
 	var step = float((OS.get_ticks_msec() - last_move_time)) / 500
 
-	Main.debug_label.text += '\ncurrent_rot: ' + str(current_rot) + '\ntarget_rot: ' + str(target_rot)
-
 	if step <= 1:
-		rotation = current_rot.linear_interpolate(target_rot, step)
-
-	var move_index = forward.ceil()
-	Main.debug_label.text += '\nmove_index: ' + str(move_index)
+		transform.basis = Basis(current_rot.slerp(target_rot, step))
 	
-	move_and_slide(forward * movespeed)
+	forward = -global_transform.basis.z
 	
-	Main.current_camera.translation = translation + Vector3(0,10,5)
-	Main.current_camera.rotation_degrees = Vector3(-45,0,0)
+	move_and_slide(forward * current_movespeed)
 	
-func _process(delta):
+	# shooting
 	if Input.is_action_pressed('ui_accept'):
 		var bullet = bullet_prefab.instance()
 		get_parent().add_child(bullet)
 		bullet.global_transform.origin = $shot_origin.global_transform.origin
-		bullet.set_axis_velocity(forward * 20)
+		bullet.set_axis_velocity(forward * 60)
 	
+	# reposition camera
+	Main.current_camera.translation = translation + Vector3(0,20,10)
+	Main.current_camera.rotation_degrees = Vector3(-45,0,0)

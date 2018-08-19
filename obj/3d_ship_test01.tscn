@@ -1,15 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scr/3d_player_test01.gd" type="Script" id=1]
-
-[sub_resource type="SphereMesh" id=8]
-
-custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
-radius = 1.0
-height = 2.0
-radial_segments = 64
-rings = 32
-is_hemisphere = false
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -151,43 +142,16 @@ axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
-movespeed = 20
+movespeed = 60
+max_movespeed = 40
+deceleration = 60
 
 [node name="shot_origin" type="Spatial" parent="." index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="move_helper" type="KinematicBody" parent="." index="1"]
-
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
-collision/safe_margin = 0.001
-
-[node name="MeshInstance" type="MeshInstance" parent="move_helper" index="0"]
-
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = SubResource( 8 )
-skeleton = NodePath("..")
-material/0 = null
-
-[node name="MeshInstance" type="MeshInstance" parent="." index="2"]
+[node name="MeshInstance" type="MeshInstance" parent="." index="1"]
 
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 0, 0 )
 layers = 1
@@ -204,7 +168,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="Particles" type="Particles" parent="." index="3"]
+[node name="Particles" type="Particles" parent="." index="2"]
 
 layers = 1
 material_override = SubResource( 2 )
@@ -233,7 +197,7 @@ draw_passes = 1
 draw_pass_1 = SubResource( 6 )
 _sections_unfolded = [ "Draw Passes", "Drawing", "Geometry", "LOD", "Process Material", "Time", "Transform", "Visibility" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="4"]
+[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
 
 shape = SubResource( 7 )
 disabled = false
