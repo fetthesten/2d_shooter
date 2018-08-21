@@ -20,8 +20,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	var coll = Main.current_world.intersect_ray(global_transform.origin, global_transform.origin + (-global_transform.basis.z * cast_range), [self])
-	var endpoint = global_transform.origin + (-global_transform.basis.z * cast_range)
+	var coll = Main.current_world.intersect_ray(global_transform.origin, global_transform.origin + (-global_transform.basis.z.normalized() * cast_range), [self])
+	var endpoint = global_transform.origin + (-global_transform.basis.z.normalized() * cast_range)
 	
 	if not coll.empty():
 		Main.debug_label.text = coll.collider.name
@@ -37,6 +37,11 @@ func _physics_process(delta):
 	Main.debug_draw.begin(Mesh.PRIMITIVE_LINE_STRIP, null)
 	Main.debug_draw.add_vertex(global_transform.origin)
 	Main.debug_draw.add_vertex(endpoint)
+	Main.debug_draw.end()
+	# draw line to meteor test
+	Main.debug_draw.begin(Mesh.PRIMITIVE_LINE_STRIP, null)
+	Main.debug_draw.add_vertex(global_transform.origin)
+	Main.debug_draw.add_vertex($'../meteor_test'.global_transform.origin)
 	Main.debug_draw.end()
 	
 func _process(delta):
@@ -82,6 +87,8 @@ func _process(delta):
 	forward = -global_transform.basis.z
 	
 	move_and_slide(forward * current_movespeed)
+	
+	Main.debug_label.text += '\npos: ' + str(global_transform.origin)
 	
 	# shooting
 	if Input.is_action_pressed('ui_accept'):
