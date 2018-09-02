@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scr/3d_player_test01.gd" type="Script" id=1]
+[ext_resource path="res://scr/weapons.gd" type="Script" id=2]
 
 [sub_resource type="PrismMesh" id=1]
 
@@ -142,13 +143,15 @@ axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
+deadzone_fire = 0.2
 movespeed = 60
 max_movespeed = 40
 deceleration = 60
 
-[node name="shot_origin" type="Spatial" parent="." index="0"]
+[node name="weapons" type="Spatial" parent="." index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2 )
+script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="1"]

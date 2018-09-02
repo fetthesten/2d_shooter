@@ -2,6 +2,7 @@ extends KinematicBody
 
 onready var bullet_prefab = preload("res://obj/3d_bullet_test.tscn")
 
+export var deadzone_fire = 0.2
 export var movespeed = 60
 export var max_movespeed = 40
 export var deceleration = 60
@@ -38,23 +39,29 @@ func _physics_process(delta):
 	Main.debug_draw.add_vertex(global_transform.origin)
 	Main.debug_draw.add_vertex(endpoint)
 	Main.debug_draw.end()
-	# draw line to meteor test
-	Main.debug_draw.begin(Mesh.PRIMITIVE_LINE_STRIP, null)
-	Main.debug_draw.add_vertex(global_transform.origin)
-	Main.debug_draw.add_vertex($'../meteor_test'.global_transform.origin)
-	Main.debug_draw.end()
 	
 func _process(delta):
 	var move = Main.V3_ZERO
+	var fire = Main.V3_ZERO
 	
-	if Input.is_action_pressed('ui_up'):
+	# get move input
+	if Input.is_action_pressed('ui_up') or Input.is_action_pressed('pad_leftstick_up'):
 		move += Main.V3_UP
-	elif Input.is_action_pressed('ui_down'):
+	elif Input.is_action_pressed('ui_down') or Input.is_action_pressed('pad_leftstick_down'):
 		move += Main.V3_DOWN
-	if Input.is_action_pressed('ui_left'):
+	if Input.is_action_pressed('ui_left') or Input.is_action_pressed('pad_leftstick_left'):
 		move += Main.V3_LEFT
-	elif Input.is_action_pressed('ui_right'):
+	elif Input.is_action_pressed('ui_right') or Input.is_action_pressed('pad_leftstick_right'):
 		move += Main.V3_RIGHT
+	
+	# get fire input
+	# pad firing
+	var xAxis = Input.get_joy_axis(0, JOY_AXIS_2)
+	var yAxis = Input.get_joy_axis(0, JOY_AXIS_3)
+	if abs(xAxis) > deadzone_fire:
+		fire.x = xAxis
+	if abs(yAxis) > deadzone_fire:
+		fire.z = yAxis
 		
 	if move != Main.V3_ZERO:
 		# increase velocity if moving
@@ -89,14 +96,16 @@ func _process(delta):
 	move_and_slide(forward * current_movespeed)
 	
 	Main.debug_label.text += '\npos: ' + str(global_transform.origin)
+	Main.debug_label.text += '\nweapon: ' + $weapons.get_weapon_name()
+	
+	#fire = fire.normalized()
 	
 	# shooting
-	if Input.is_action_pressed('ui_accept'):
-		var bullet = bullet_prefab.instance()
-		get_parent().add_child(bullet)
-		bullet.global_transform.origin = $shot_origin.global_transform.origin
-		bullet.set_axis_velocity(forward * 60)
+	#if Input.is_action_pressed('ui_accept'):
+	if fire != Main.V3_ZERO:
+		fire = fire.normalized()
+		$weapons.fire(fire)
 	
 	# reposition camera
-	Main.current_camera.translation = translation + Vector3(0,20,10)
+	Main.current_camera.translation = translation + Vector3(0,30,20)
 	Main.current_camera.rotation_degrees = Vector3(-45,0,0)
