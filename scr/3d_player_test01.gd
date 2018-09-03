@@ -15,6 +15,8 @@ var cast_hit = null
 var cast_target = null
 var cast_range = 50
 
+var mouse_pos = Main.V3_ZERO
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -24,6 +26,7 @@ func _physics_process(delta):
 	var coll = Main.current_world.intersect_ray(global_transform.origin, global_transform.origin + (-global_transform.basis.z.normalized() * cast_range), [self])
 	var endpoint = global_transform.origin + (-global_transform.basis.z.normalized() * cast_range)
 	
+	# store info about what the player is pointing towards, just because
 	if not coll.empty():
 		Main.debug_label.text = coll.collider.name
 		endpoint = coll.collider.global_transform.origin
@@ -34,10 +37,16 @@ func _physics_process(delta):
 		cast_hit = null
 		cast_target = null
 
+	# debug aiming line 
 	Main.debug_draw.clear()
 	Main.debug_draw.begin(Mesh.PRIMITIVE_LINE_STRIP, null)
 	Main.debug_draw.add_vertex(global_transform.origin)
 	Main.debug_draw.add_vertex(endpoint)
+	Main.debug_draw.end()
+	# mouse cursor - make a better one plz
+	Main.debug_draw.begin(Mesh.PRIMITIVE_LINE_STRIP, null)
+	Main.debug_draw.add_vertex(mouse_pos)
+	Main.debug_draw.add_vertex(mouse_pos + Vector3(0.5,0,0.5))
 	Main.debug_draw.end()
 	
 func _process(delta):
@@ -45,6 +54,7 @@ func _process(delta):
 	var fire = Main.V3_ZERO
 	
 	# get move input
+	# axis strength doesn't matter, smooth velocity based on how long input has been received
 	if Input.is_action_pressed('ui_up') or Input.is_action_pressed('pad_leftstick_up'):
 		move += Main.V3_UP
 	elif Input.is_action_pressed('ui_down') or Input.is_action_pressed('pad_leftstick_down'):
@@ -98,14 +108,16 @@ func _process(delta):
 	Main.debug_label.text += '\npos: ' + str(global_transform.origin)
 	Main.debug_label.text += '\nweapon: ' + $weapons.get_weapon_name()
 	
-	#fire = fire.normalized()
-	
 	# shooting
-	#if Input.is_action_pressed('ui_accept'):
+	# pad right stick takes priority
 	if fire != Main.V3_ZERO:
-		fire = fire.normalized()
-		$weapons.fire(fire)
+		$weapons.fire(fire.normalized())
+	elif Input.is_mouse_button_pressed(BUTTON_LEFT):
+		$weapons.fire((mouse_pos - global_transform.origin).normalized())
 	
 	# reposition camera
 	Main.current_camera.translation = translation + Vector3(0,30,20)
 	Main.current_camera.rotation_degrees = Vector3(-45,0,0)
+
+func mouse_click(camera, event, click_position, click_normal, shape_idx):
+	mouse_pos = Vector3(click_position.x,0,click_position.z)

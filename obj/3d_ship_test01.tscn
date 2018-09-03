@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scr/3d_player_test01.gd" type="Script" id=1]
 [ext_resource path="res://scr/weapons.gd" type="Script" id=2]
@@ -128,6 +128,10 @@ is_hemisphere = false
 radius = 1.0
 height = 1.0
 
+[sub_resource type="PlaneShape" id=8]
+
+plane = Plane( 0, 1, 0, 0 )
+
 [node name="3dship01" type="KinematicBody"]
 
 input_ray_pickable = true
@@ -204,5 +208,25 @@ _sections_unfolded = [ "Draw Passes", "Drawing", "Geometry", "LOD", "Process Mat
 
 shape = SubResource( 7 )
 disabled = false
+
+[node name="StaticBody" type="StaticBody" parent="." index="4"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+input_ray_pickable = false
+input_capture_on_drag = false
+collision_layer = 524288
+collision_mask = 524288
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="mouse_plane" type="CollisionShape" parent="StaticBody" index="0"]
+
+shape = SubResource( 8 )
+disabled = false
+
+[connection signal="input_event" from="StaticBody" to="." method="mouse_click"]
 
 
