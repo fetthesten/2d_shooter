@@ -87,5 +87,7 @@ pad_rightstick_down=[ Object(InputEventJoypadMotion,"resource_local_to_scene":fa
 
 [rendering]
 
+quality/filters/anisotropic_filter_level=8
 environment/default_clear_color=Color( 0.329437, 0.413094, 0.664063, 1 )
+quality/filters/msaa=2
 environment/default_environment="res://default_env.tres"
