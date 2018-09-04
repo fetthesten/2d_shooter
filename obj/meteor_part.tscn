@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scr/meteor_part.gd" type="Script" id=1]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -13,19 +15,35 @@ radial_segments = 64
 rings = 32
 is_hemisphere = false
 
-[node name="meteor_part" type="KinematicBody"]
+[node name="meteor_part" type="RigidBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
 collision_mask = 1
+mode = 1
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = true
+contacts_reported = 1
+contact_monitor = false
+sleeping = false
+can_sleep = true
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
 axis_lock_angular_x = false
 axis_lock_angular_y = false
 axis_lock_angular_z = false
-collision/safe_margin = 0.001
+linear_velocity = Vector3( 0, 0, 0 )
+linear_damp = -1.0
+angular_velocity = Vector3( 0, 0, 0 )
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 
 [node name="collision" type="CollisionShape" parent="." index="0"]
 
@@ -49,7 +67,7 @@ material/0 = null
 
 [node name="spawnpoint1" type="Spatial" parent="." index="2"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="spawnpoint2" type="Spatial" parent="." index="3"]
@@ -59,12 +77,14 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="spawnpoint3" type="Spatial" parent="." index="4"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="spawnpoint4" type="Spatial" parent="." index="5"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6 )
 _sections_unfolded = [ "Transform" ]
+
+[connection signal="body_entered" from="." to="." method="damage"]
 
 

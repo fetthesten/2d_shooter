@@ -23,6 +23,7 @@ func fire(forward):
 	if current_time > weapon.last_fired + weapon.cooldown:
 		weapons[current_weapon].last_fired = current_time
 		var projectile = weapon.prefab.instance()
+		projectile.set_damage(weapon.damage)
 		Main.current_scene.add_child(projectile)
 		projectile.global_transform.origin = global_transform.origin
 		if weapon.spread != 0:
