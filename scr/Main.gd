@@ -14,6 +14,10 @@ onready var debug_label = $debug_label
 onready var debug_draw = $debug_draw
 var mat = SpatialMaterial.new()
 
+# mouse cursor! this owns
+onready var mouse_cursor_prefab = preload('res://obj/cursor_best.tscn')
+var mouse_cursor
+
 # for this to work, this needs to be the only singleton in the game so the second tree child is always the current scene
 onready var current_scene = get_parent().get_child(1)
 var current_camera
@@ -28,6 +32,9 @@ func _ready():
 		current_camera = current_scene.get_node('Camera')
 	else:
 		printerr('*! no camera found')
+	
+	mouse_cursor = mouse_cursor_prefab.instance()
+	current_scene.add_child(mouse_cursor)
 	
 	current_camera.current = true
 	
@@ -45,3 +52,6 @@ func _physics_process(delta):
 
 func _process(delta):
 	pass
+	
+func draw_mouse_cursor(position):
+	mouse_cursor.global_transform.origin = position

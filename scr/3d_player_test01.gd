@@ -16,6 +16,7 @@ var cast_target = null
 var cast_range = 50
 
 var mouse_pos = Main.V3_ZERO
+var mouse_update_player_pos = Main.V3_ZERO	# to calculate firing vector offset if player moves after aiming
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -42,11 +43,6 @@ func _physics_process(delta):
 	Main.debug_draw.begin(Mesh.PRIMITIVE_LINE_STRIP, null)
 	Main.debug_draw.add_vertex(global_transform.origin)
 	Main.debug_draw.add_vertex(endpoint)
-	Main.debug_draw.end()
-	# mouse cursor - make a better one plz
-	Main.debug_draw.begin(Mesh.PRIMITIVE_LINE_STRIP, null)
-	Main.debug_draw.add_vertex(mouse_pos)
-	Main.debug_draw.add_vertex(mouse_pos + Vector3(0.5,0,0.5))
 	Main.debug_draw.end()
 	
 func _process(delta):
@@ -108,12 +104,18 @@ func _process(delta):
 	Main.debug_label.text += '\npos: ' + str(global_transform.origin)
 	Main.debug_label.text += '\nweapon: ' + $weapons.get_weapon_name()
 	
+	# aim offset for when player is moving while firing using mouse
+	var aim_offset = Main.V3_ZERO
+	if mouse_update_player_pos != global_transform.origin:
+		aim_offset = mouse_update_player_pos - global_transform.origin
+	Main.draw_mouse_cursor(mouse_pos - aim_offset)
+	
 	# shooting
 	# pad right stick takes priority
 	if fire != Main.V3_ZERO:
 		$weapons.fire(fire.normalized())
 	elif Input.is_mouse_button_pressed(BUTTON_LEFT):
-		$weapons.fire((mouse_pos - global_transform.origin).normalized())
+		$weapons.fire((mouse_pos - (global_transform.origin + aim_offset)).normalized())
 	
 	# reposition camera
 	Main.current_camera.translation = translation + Vector3(0,30,20)
@@ -121,3 +123,4 @@ func _process(delta):
 
 func mouse_click(camera, event, click_position, click_normal, shape_idx):
 	mouse_pos = Vector3(click_position.x,0,click_position.z)
+	mouse_update_player_pos = Vector3(global_transform.origin)
