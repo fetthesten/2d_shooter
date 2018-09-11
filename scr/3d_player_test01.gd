@@ -18,6 +18,8 @@ var cast_range = 50
 var mouse_pos = Main.V3_ZERO
 var mouse_update_player_pos = Main.V3_ZERO	# to calculate firing vector offset if player moves after aiming
 
+var test_weaponswitch = true
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -109,6 +111,13 @@ func _process(delta):
 	if mouse_update_player_pos != global_transform.origin:
 		aim_offset = mouse_update_player_pos - global_transform.origin
 	Main.draw_mouse_cursor(mouse_pos - aim_offset)
+	
+	# test weapon switch
+	if Input.is_key_pressed(KEY_X) and test_weaponswitch:
+		$weapons.switch_weapon()
+		test_weaponswitch = false
+	if not Input.is_key_pressed(KEY_X):
+		test_weaponswitch = true
 	
 	# shooting
 	# pad right stick takes priority
